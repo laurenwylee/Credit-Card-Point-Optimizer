@@ -60,6 +60,7 @@
         { "spendBonusCategoryName": "dining", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3x on dining, including delivery" },
         { "spendBonusCategoryName": "online-groceries", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3x on online grocery purchases" },
         { "spendBonusCategoryName": "streaming", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3x on select streaming services" },
+        { "spendBonusCategoryName": "gas", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3x on gas and EV charging (added June 2026)" },
         { "spendBonusCategoryName": "travel", "earnMultiplier": 2, "isSpendLimit": false, "spendBonusDesc": "2x on all other travel" }
       ],
       "signupBonusDesc": "75,000 Ultimate Rewards points after $5,000 spend in 3 months"
@@ -119,7 +120,9 @@
       "annualFee": 0,
       "earnCurrency": "cashback",
       "baseSpendAmount": 2,
-      "spendBonusCategory": [],
+      "spendBonusCategory": [
+        { "spendBonusCategoryName": "citi-travel", "earnMultiplier": 5, "isSpendLimit": false, "spendBonusDesc": "5% total cash back on hotels and rental cars booked through Citi Travel" }
+      ],
       "signupBonusDesc": "$200 after $1,500 spend in 6 months"
     },
     {
@@ -133,7 +136,7 @@
       "spendBonusCategory": [
         { "spendBonusCategoryName": "top-category", "earnMultiplier": 5, "isSpendLimit": true, "spendLimit": 500, "spendLimitResetPeriod": "month", "spendBonusDesc": "5% on your top eligible spend category each billing cycle (dining, groceries, gas, travel, transit, streaming, drugstores, home improvement, fitness, live entertainment), up to $500/mo" }
       ],
-      "signupBonusDesc": "$200 after $1,500 spend in 6 months"
+      "signupBonusDesc": "$200 after $1,500 spend in 6 months (closed to new applicants as of May 2026)"
     },
     {
       "cardKey": "capital-one-venture",
@@ -229,7 +232,7 @@
       "earnCurrency": "us-bank-points",
       "baseSpendAmount": 1,
       "spendBonusCategory": [
-        { "spendBonusCategoryName": "dining", "earnMultiplier": 4, "isSpendLimit": false, "spendBonusDesc": "4x on dining, takeout, and delivery" },
+        { "spendBonusCategoryName": "dining", "earnMultiplier": 4, "isSpendLimit": true, "spendLimit": 2000, "spendLimitResetPeriod": "quarter", "spendBonusDesc": "4x on dining, takeout, and delivery, up to $2,000/qtr" },
         { "spendBonusCategoryName": "groceries", "earnMultiplier": 2, "isSpendLimit": false, "spendBonusDesc": "2x at grocery stores" },
         { "spendBonusCategoryName": "gas", "earnMultiplier": 2, "isSpendLimit": false, "spendBonusDesc": "2x at gas stations and EV charging" },
         { "spendBonusCategoryName": "streaming", "earnMultiplier": 2, "isSpendLimit": false, "spendBonusDesc": "2x on streaming services" }

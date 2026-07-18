@@ -39,6 +39,10 @@ const BONUS_RULES: Record<string, { appliesTo: SpendCategory[]; caveat?: string 
     appliesTo: ["travel", "hotels"],
     caveat: "Requires booking through Capital One Travel",
   },
+  "citi-travel": {
+    appliesTo: ["travel", "hotels"],
+    caveat: "Requires booking through Citi Travel",
+  },
   "top-category": {
     appliesTo: ["dining", "groceries", "gas", "travel", "transit", "streaming", "drugstores", "entertainment"],
     caveat: "Only if this is your top spend category this billing cycle",
@@ -50,15 +54,15 @@ const BONUS_RULES: Record<string, { appliesTo: SpendCategory[]; caveat?: string 
 };
 
 // Rotating 5% categories change quarterly — update once per quarter.
-// Q3 2026 assumptions for the demo.
-const CURRENT_ROTATING: Partial<Record<string, SpendCategory>> = {
-  "chase-freedom-flex": "gas",
-  "discover-it-cash-back": "groceries",
+// Q3 2026 (Jul-Sep), verified against issuer calendars 2026-07-18.
+const CURRENT_ROTATING: Partial<Record<string, SpendCategory[]>> = {
+  "chase-freedom-flex": ["gas", "transit", "entertainment"],
+  "discover-it-cash-back": ["gas", "transit", "flights", "drugstores"],
 };
 
 function bonusApplies(card: Card, bonus: SpendBonus, category: SpendCategory): { applies: boolean; caveat?: string } {
   if (bonus.spendBonusCategoryName === "rotating") {
-    return CURRENT_ROTATING[card.cardKey] === category
+    return CURRENT_ROTATING[card.cardKey]?.includes(category)
       ? { applies: true, caveat: "This quarter's rotating 5% category (activation required)" }
       : { applies: false };
   }
