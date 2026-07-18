@@ -89,7 +89,7 @@ export default function OnboardingWizard({
 
   return (
     <div className="min-h-screen bg-white text-[#0A0B0D]">
-      <SiteHeader right={<span className="text-sm text-[#5B616E]">Never enter card numbers or login credentials.</span>} />
+      <SiteHeader right={<span className="text-xs text-[#5B616E] sm:text-sm">Never enter card numbers or login credentials.</span>} />
       <main className="mx-auto max-w-6xl px-6 py-10 sm:py-14">
         <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
           <aside>
@@ -108,9 +108,9 @@ export default function OnboardingWizard({
             {step === 1 && <>
               <h1 className="text-3xl font-bold tracking-[-0.01em]">Which cards do you have?</h1>
               <p className="mt-3 text-[#5B616E]">Select the card products in your wallet. Do not enter card numbers, passwords, expiration dates, or CVVs.</p>
-              <div className="mt-6 grid gap-3 sm:grid-cols-[1fr_220px]">
-                <input aria-label="Search cards" className="h-11 rounded-xl border border-[#D0D5DD] px-4" onChange={(event) => setSearch(event.target.value)} placeholder="Search cards or issuers" value={search} />
-                <select aria-label="Filter by issuer" className="h-11 rounded-xl border border-[#D0D5DD] bg-white px-4" onChange={(event) => setIssuer(event.target.value)} value={issuer}><option value="all">All issuers</option>{issuers.map((name) => <option key={name}>{name}</option>)}</select>
+              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-[1fr_220px]">
+                <input aria-label="Search cards" className="h-11 w-full min-w-0 rounded-xl border border-[#D0D5DD] px-4" onChange={(event) => setSearch(event.target.value)} placeholder="Search cards or issuers" value={search} />
+                <select aria-label="Filter by issuer" className="h-11 w-full min-w-0 rounded-xl border border-[#D0D5DD] bg-white px-4" onChange={(event) => setIssuer(event.target.value)} value={issuer}><option value="all">All issuers</option>{issuers.map((name) => <option key={name}>{name}</option>)}</select>
               </div>
               <div className="mt-6 grid max-h-[560px] gap-3 overflow-y-auto pr-1 sm:grid-cols-2">
                 {filteredCards.map((card) => {

@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Card } from "@/lib/cards";
 import { CardFace } from "@/components/CardFace";
 
-const PEEK = 58; // visible strip of each stacked card, like Apple Wallet
-const CARD_HEIGHT = 224; // 356px wide at 1.586 aspect
+const ASPECT = 1.586; // matches CardFace's aspect-[1.586/1]
+const MAX_CARD_WIDTH = 356;
+const PEEK_RATIO = 58 / 224; // visible strip of each stacked card, like Apple Wallet
+const DETAIL_SPACE = 396; // room reserved below the selected card for its detail panel
 const EASE = "cubic-bezier(0.32, 0.72, 0.28, 1)";
 
 function EarningRates({ card }: { card: Card }) {
@@ -54,7 +56,22 @@ interface WalletStackProps {
 }
 
 export function WalletStack({ cards, ranks, onSelectChange }: WalletStackProps) {
+  const measureRef = useRef<HTMLDivElement>(null);
+  const [cardWidth, setCardWidth] = useState(MAX_CARD_WIDTH);
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
+
+  // Card size follows the actual rendered width (phones shrink well below
+  // MAX_CARD_WIDTH), so the fan/peek math below stays correct at any size
+  // instead of assuming a fixed desktop card height.
+  useEffect(() => {
+    const el = measureRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(([entry]) => {
+      setCardWidth(Math.min(MAX_CARD_WIDTH, entry.contentRect.width));
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   function select(key: string | null) {
     setSelectedKey(key);
@@ -64,15 +81,20 @@ export function WalletStack({ cards, ranks, onSelectChange }: WalletStackProps) 
   const selectedIndex = cards.findIndex((c) => c.cardKey === selectedKey);
   const selected = selectedIndex >= 0 ? cards[selectedIndex] : null;
 
-  const containerHeight = selected ? 620 : PEEK * (cards.length - 1) + CARD_HEIGHT + 24;
-  const fanBase = 620 - CARD_HEIGHT + 118; // where collapsed cards peek from the bottom
+  const cardHeight = cardWidth / ASPECT;
+  const peek = cardHeight * PEEK_RATIO;
+  const selectedHeight = cardHeight + DETAIL_SPACE;
+  const collapsedHeight = peek * (cards.length - 1) + cardHeight + 24;
+  const containerHeight = selected ? selectedHeight : collapsedHeight;
+  const fanBase = selectedHeight - cardHeight + 118; // where collapsed cards peek from the bottom
 
   return (
     <div
-      className={`relative h-[620px] rounded-3xl bg-[#F5F6F8] p-6 ${selected ? "overflow-hidden" : "overflow-y-auto"}`}
+      className={`relative rounded-3xl bg-[#F5F6F8] p-6 ${selected ? "overflow-hidden" : "overflow-y-auto"}`}
+      style={{ height: selected ? selectedHeight : 620 }}
       onClick={() => select(null)}
     >
-      <div className="relative mx-auto w-full max-w-[356px]" style={{ height: containerHeight }}>
+      <div ref={measureRef} className="relative mx-auto w-full max-w-[356px]" style={{ height: containerHeight }}>
         {cards.map((card, i) => {
           const rank = ranks.get(card.cardKey);
           const isSelected = card.cardKey === selectedKey;
@@ -80,7 +102,7 @@ export function WalletStack({ cards, ranks, onSelectChange }: WalletStackProps) 
           let transform: string;
           let zIndex: number;
           if (!selected) {
-            transform = `translateY(${i * PEEK}px)`;
+            transform = `translateY(${i * peek}px)`;
             zIndex = i + 1;
           } else if (isSelected) {
             transform = "translateY(0px)";
@@ -119,7 +141,7 @@ export function WalletStack({ cards, ranks, onSelectChange }: WalletStackProps) 
         {selected && (
           <div
             className="absolute inset-x-0 rounded-2xl bg-white p-5 shadow-sm"
-            style={{ top: CARD_HEIGHT + 16, zIndex: 55 }}
+            style={{ top: cardHeight + 16, zIndex: 55 }}
             onClick={(e) => e.stopPropagation()}
           >
             <EarningRates card={selected} />

@@ -99,7 +99,7 @@ export default function PointsOptimizer({
           <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#16A34A]">
             Redemption optimizer
           </p>
-          <h1 className="mt-4 text-[44px] font-bold leading-[1.08] tracking-[-0.02em] text-[#0A0B0D] sm:text-6xl">
+          <h1 className="mt-4 text-4xl font-bold leading-[1.08] tracking-[-0.02em] text-[#0A0B0D] sm:text-[44px] md:text-6xl">
             Find the strongest use for your points.
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-[#5B616E]">
@@ -111,13 +111,13 @@ export default function PointsOptimizer({
 
         <section className="mt-10 rounded-3xl border border-[#EEF0F3] bg-white p-6 shadow-sm sm:p-8">
           <form
-            className="grid gap-5 md:grid-cols-[1.5fr_1fr_auto] md:items-end"
+            className="grid grid-cols-1 gap-5 md:grid-cols-[1.5fr_1fr_auto] md:items-end"
             onSubmit={handleSubmit}
           >
-            <label className="grid gap-2 text-sm font-semibold text-[#5B616E]">
+            <label className="grid min-w-0 gap-2 text-sm font-semibold text-[#5B616E]">
               Rewards program
               <select
-                className="h-12 rounded-xl border border-[#D0D5DD] bg-white px-4 text-base text-[#0A0B0D] outline-none transition focus:border-[#16A34A] focus:ring-4 focus:ring-[#DCFCE7]"
+                className="h-12 w-full min-w-0 rounded-xl border border-[#D0D5DD] bg-white px-4 text-base text-[#0A0B0D] outline-none transition focus:border-[#16A34A] focus:ring-4 focus:ring-[#DCFCE7]"
                 onChange={(event) => setProgramId(event.target.value)}
                 value={programId}
               >
@@ -145,10 +145,10 @@ export default function PointsOptimizer({
               </select>
             </label>
 
-            <label className="grid gap-2 text-sm font-semibold text-[#5B616E]">
+            <label className="grid min-w-0 gap-2 text-sm font-semibold text-[#5B616E]">
               Points balance
               <input
-                className="h-12 rounded-xl border border-[#D0D5DD] px-4 text-base text-[#0A0B0D] outline-none transition focus:border-[#16A34A] focus:ring-4 focus:ring-[#DCFCE7]"
+                className="h-12 w-full min-w-0 rounded-xl border border-[#D0D5DD] px-4 text-base text-[#0A0B0D] outline-none transition focus:border-[#16A34A] focus:ring-4 focus:ring-[#DCFCE7]"
                 inputMode="numeric"
                 min="1"
                 onChange={(event) => setPointsInput(event.target.value)}
@@ -160,7 +160,7 @@ export default function PointsOptimizer({
             </label>
 
             <button
-              className="h-12 rounded-full bg-[#16A34A] px-6 font-semibold text-white transition disabled:cursor-wait disabled:opacity-60"
+              className="h-12 w-full rounded-full bg-[#16A34A] px-6 font-semibold text-white transition disabled:cursor-wait disabled:opacity-60 md:w-auto"
               disabled={isLoading}
               type="submit"
             >

@@ -39,7 +39,7 @@ export function WalletApp({ cards, nudge }: { cards: Card[]; nudge?: SignupNudge
     <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 pb-20 lg:grid-cols-[minmax(0,1fr)_420px]">
       {/* min-w-0 lets truncated text shrink instead of blowing out the grid column */}
       <section className="min-w-0">
-        <h1 className="max-w-xl text-[44px] font-bold leading-[1.08] tracking-[-0.02em] text-[#0A0B0D]">
+        <h1 className="max-w-xl text-4xl font-bold leading-[1.08] tracking-[-0.02em] text-[#0A0B0D] sm:text-[44px]">
           The right card for every purchase.
         </h1>
         <p className="mt-4 max-w-lg text-[17px] leading-relaxed text-[#5B616E]">
