@@ -31,7 +31,7 @@ export default async function WalletPage() {
       <SiteHeader
         right={
           <Link
-            className="rounded-full bg-[#F5F6F8] px-3.5 py-1.5 text-[13px] font-medium text-[#5B616E] hover:bg-[#EEF0F3]"
+            className="rounded-full bg-[#0052FF] px-3.5 py-1.5 text-[13px] font-medium text-white hover:bg-[#0043CC]"
             href="/dashboard"
           >
             Dashboard

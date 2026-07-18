@@ -42,8 +42,7 @@ export function WalletApp({ cards }: { cards: Card[] }) {
           The right card for every purchase.
         </h1>
         <p className="mt-4 max-w-lg text-[17px] leading-relaxed text-[#5B616E]">
-          Pick what you&apos;re buying and we&apos;ll rank your cards by real value back — points
-          valuations included, portal tricks flagged.
+          Pick what you&apos;re buying and we&apos;ll rank your cards by real value back.
         </p>
         <div className="mt-8">
           <RecommendPanel

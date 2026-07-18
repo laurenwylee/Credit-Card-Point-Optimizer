@@ -8,14 +8,58 @@ const PEEK = 58; // visible strip of each stacked card, like Apple Wallet
 const CARD_HEIGHT = 224; // 356px wide at 1.586 aspect
 const EASE = "cubic-bezier(0.32, 0.72, 0.28, 1)";
 
+function EarningRates({ card }: { card: Card }) {
+  return (
+    <>
+      <div className="flex items-baseline justify-between">
+        <h3 className="text-[15px] font-semibold text-[#0A0B0D]">Earning rates</h3>
+        <span className="text-[13px] text-[#5B616E]">
+          {card.annualFee === 0 ? "No annual fee" : `$${card.annualFee} annual fee`}
+        </span>
+      </div>
+      <ul className="mt-3 space-y-2">
+        {card.spendBonusCategory.length === 0 && (
+          <li className="text-[14px] text-[#0A0B0D]">
+            <span className="font-semibold">{card.baseSpendAmount}%</span> flat rate on everything
+          </li>
+        )}
+        {card.spendBonusCategory.map((b) => (
+          <li key={b.spendBonusCategoryName} className="flex gap-2.5 text-[14px] leading-snug">
+            <span className="mt-[3px] h-2 w-2 shrink-0 rounded-full bg-[#0052FF]" />
+            <span className="text-[#0A0B0D]">{b.spendBonusDesc}</span>
+          </li>
+        ))}
+        {card.spendBonusCategory.length > 0 && (
+          <li className="flex gap-2.5 text-[14px] leading-snug">
+            <span className="mt-[3px] h-2 w-2 shrink-0 rounded-full bg-[#D0D5DD]" />
+            <span className="text-[#5B616E]">{card.baseSpendAmount}x on everything else</span>
+          </li>
+        )}
+      </ul>
+      {card.signupBonusDesc && (
+        <p className="mt-4 border-t border-[#EEF0F3] pt-3 text-[13px] leading-snug text-[#5B616E]">
+          Welcome offer: {card.signupBonusDesc}
+        </p>
+      )}
+    </>
+  );
+}
+
 interface WalletStackProps {
   cards: Card[];
   // cardKey -> rank (1-based) for the active category; ranked cards get a badge
   ranks: Map<string, number>;
+  // notified whenever the selected card changes (including deselect -> null)
+  onSelectChange?: (key: string | null) => void;
 }
 
-export function WalletStack({ cards, ranks }: WalletStackProps) {
+export function WalletStack({ cards, ranks, onSelectChange }: WalletStackProps) {
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
+
+  function select(key: string | null) {
+    setSelectedKey(key);
+    onSelectChange?.(key);
+  }
 
   const selectedIndex = cards.findIndex((c) => c.cardKey === selectedKey);
   const selected = selectedIndex >= 0 ? cards[selectedIndex] : null;
@@ -26,7 +70,7 @@ export function WalletStack({ cards, ranks }: WalletStackProps) {
   return (
     <div
       className={`relative h-[620px] rounded-3xl bg-[#F5F6F8] p-6 ${selected ? "overflow-hidden" : "overflow-y-auto"}`}
-      onClick={() => setSelectedKey(null)}
+      onClick={() => select(null)}
     >
       <div className="relative mx-auto w-full max-w-[356px]" style={{ height: containerHeight }}>
         {cards.map((card, i) => {
@@ -57,7 +101,7 @@ export function WalletStack({ cards, ranks }: WalletStackProps) {
               style={{ transform, zIndex, transition: `transform 420ms ${EASE}` }}
               onClick={(e) => {
                 e.stopPropagation();
-                setSelectedKey(isSelected ? null : card.cardKey);
+                select(isSelected ? null : card.cardKey);
               }}
             >
               <div className={`transition-transform duration-200 ${!selected ? "group-hover:-translate-y-1.5" : ""}`}>
@@ -78,36 +122,7 @@ export function WalletStack({ cards, ranks }: WalletStackProps) {
             style={{ top: CARD_HEIGHT + 16, zIndex: 55 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-baseline justify-between">
-              <h3 className="text-[15px] font-semibold text-[#0A0B0D]">Earning rates</h3>
-              <span className="text-[13px] text-[#5B616E]">
-                {selected.annualFee === 0 ? "No annual fee" : `$${selected.annualFee} annual fee`}
-              </span>
-            </div>
-            <ul className="mt-3 space-y-2">
-              {selected.spendBonusCategory.length === 0 && (
-                <li className="text-[14px] text-[#0A0B0D]">
-                  <span className="font-semibold">{selected.baseSpendAmount}%</span> flat rate on everything
-                </li>
-              )}
-              {selected.spendBonusCategory.map((b) => (
-                <li key={b.spendBonusCategoryName} className="flex gap-2.5 text-[14px] leading-snug">
-                  <span className="mt-[3px] h-2 w-2 shrink-0 rounded-full bg-[#0052FF]" />
-                  <span className="text-[#0A0B0D]">{b.spendBonusDesc}</span>
-                </li>
-              ))}
-              {selected.spendBonusCategory.length > 0 && (
-                <li className="flex gap-2.5 text-[14px] leading-snug">
-                  <span className="mt-[3px] h-2 w-2 shrink-0 rounded-full bg-[#D0D5DD]" />
-                  <span className="text-[#5B616E]">{selected.baseSpendAmount}x on everything else</span>
-                </li>
-              )}
-            </ul>
-            {selected.signupBonusDesc && (
-              <p className="mt-4 border-t border-[#EEF0F3] pt-3 text-[13px] leading-snug text-[#5B616E]">
-                Welcome offer: {selected.signupBonusDesc}
-              </p>
-            )}
+            <EarningRates card={selected} />
           </div>
         )}
       </div>
