@@ -75,7 +75,7 @@ function SignupNudgeBanner({ nudge, amount }: { nudge: SignupNudge; amount: stri
   const displayName = /^the /i.test(nudge.cardName) ? nudge.cardName : `the ${nudge.cardName}`;
   return (
     <div className="mt-5 rounded-2xl border border-[#EEF0F3] bg-white p-4">
-      <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#0052FF]">
+      <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#16A34A]">
         Welcome offer
       </p>
       <p className="mt-1.5 text-[14px] leading-snug text-[#0A0B0D]">
