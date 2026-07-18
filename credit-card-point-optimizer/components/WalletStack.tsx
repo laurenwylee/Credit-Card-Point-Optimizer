@@ -25,7 +25,7 @@ function EarningRates({ card }: { card: Card }) {
         )}
         {card.spendBonusCategory.map((b) => (
           <li key={b.spendBonusCategoryName} className="flex gap-2.5 text-[14px] leading-snug">
-            <span className="mt-[3px] h-2 w-2 shrink-0 rounded-full bg-[#0052FF]" />
+            <span className="mt-[3px] h-2 w-2 shrink-0 rounded-full bg-[#16A34A]" />
             <span className="text-[#0A0B0D]">{b.spendBonusDesc}</span>
           </li>
         ))}
@@ -107,7 +107,7 @@ export function WalletStack({ cards, ranks, onSelectChange }: WalletStackProps) 
               <div className={`transition-transform duration-200 ${!selected ? "group-hover:-translate-y-1.5" : ""}`}>
                 <CardFace card={card} />
                 {rank !== undefined && !selected && (
-                  <span className="absolute -right-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-full bg-[#0052FF] px-1.5 text-[12px] font-bold text-white shadow-md ring-2 ring-white">
+                  <span className="absolute -right-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-full bg-[#16A34A] px-1.5 text-[12px] font-bold text-white shadow-md ring-2 ring-white">
                     {rank}
                   </span>
                 )}

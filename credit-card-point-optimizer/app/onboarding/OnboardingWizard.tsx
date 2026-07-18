@@ -93,11 +93,11 @@ export default function OnboardingWizard({
       <main className="mx-auto max-w-6xl px-6 py-10 sm:py-14">
         <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
           <aside>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#0052FF]">Set up your wallet</p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#16A34A]">Set up your wallet</p>
             <ol className="mt-6 space-y-4">
               {["Your cards", "Points balances"].map((label, index) => (
                 <li className={`flex items-center gap-3 text-sm font-semibold ${step === index + 1 ? "text-[#0A0B0D]" : "text-[#9AA0AA]"}`} key={label}>
-                  <span className={`grid h-8 w-8 place-items-center rounded-full ${step === index + 1 ? "bg-[#0052FF] text-white" : "bg-[#EBF0FF] text-[#0052FF]"}`}>{index + 1}</span>
+                  <span className={`grid h-8 w-8 place-items-center rounded-full ${step === index + 1 ? "bg-[#16A34A] text-white" : "bg-[#DCFCE7] text-[#16A34A]"}`}>{index + 1}</span>
                   {label}
                 </li>
               ))}
@@ -115,7 +115,7 @@ export default function OnboardingWizard({
               <div className="mt-6 grid max-h-[560px] gap-3 overflow-y-auto pr-1 sm:grid-cols-2">
                 {filteredCards.map((card) => {
                   const checked = selected.includes(card.cardKey);
-                  return <button aria-pressed={checked} className={`rounded-2xl border p-4 text-left transition ${checked ? "border-[#0052FF] bg-[#EBF0FF] ring-2 ring-[#EBF0FF]" : "border-[#EEF0F3] hover:border-[#D0D5DD]"}`} key={card.cardKey} onClick={() => toggleCard(card.cardKey)} type="button"><div className="flex justify-between gap-3"><div><p className="font-semibold">{card.cardName}</p><p className="mt-1 text-sm text-[#5B616E]">{card.cardIssuer} · {card.cardNetwork}</p></div><span className={`grid h-6 w-6 shrink-0 place-items-center rounded-full border text-sm ${checked ? "border-[#0052FF] bg-[#0052FF] text-white" : "border-[#D0D5DD]"}`}>{checked ? "✓" : ""}</span></div><div className="mt-4 flex flex-wrap gap-2 text-xs"><span className="rounded-full bg-[#F5F6F8] px-2.5 py-1">{card.baseSpendAmount}x base</span><span className="rounded-full bg-[#F5F6F8] px-2.5 py-1">{card.annualFee ? `${formatCurrency(card.annualFee)}/yr` : "No annual fee"}</span></div></button>;
+                  return <button aria-pressed={checked} className={`rounded-2xl border p-4 text-left transition ${checked ? "border-[#16A34A] bg-[#DCFCE7] ring-2 ring-[#DCFCE7]" : "border-[#EEF0F3] hover:border-[#D0D5DD]"}`} key={card.cardKey} onClick={() => toggleCard(card.cardKey)} type="button"><div className="flex justify-between gap-3"><div><p className="font-semibold">{card.cardName}</p><p className="mt-1 text-sm text-[#5B616E]">{card.cardIssuer} · {card.cardNetwork}</p></div><span className={`grid h-6 w-6 shrink-0 place-items-center rounded-full border text-sm ${checked ? "border-[#16A34A] bg-[#16A34A] text-white" : "border-[#D0D5DD]"}`}>{checked ? "✓" : ""}</span></div><div className="mt-4 flex flex-wrap gap-2 text-xs"><span className="rounded-full bg-[#F5F6F8] px-2.5 py-1">{card.baseSpendAmount}x base</span><span className="rounded-full bg-[#F5F6F8] px-2.5 py-1">{card.annualFee ? `${formatCurrency(card.annualFee)}/yr` : "No annual fee"}</span></div></button>;
                 })}
               </div>
               <p className="mt-5 text-sm text-[#5B616E]">Card not listed? More cards are coming soon.</p>
@@ -133,7 +133,7 @@ export default function OnboardingWizard({
                 ))}
               </div>
               <div className="mt-7 rounded-2xl bg-[#0A0B0D] p-5 text-white">
-                <p className="text-xs font-bold uppercase tracking-widest text-[#7FA6FF]">Review</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-[#86EFAC]">Review</p>
                 <p className="mt-2 font-semibold">{selectedCards.length} card{selectedCards.length === 1 ? "" : "s"}</p>
                 <p className="mt-1 text-sm text-[#9AA0AA]">{formatPoints(totalPoints)} total points entered</p>
               </div>
@@ -143,8 +143,8 @@ export default function OnboardingWizard({
             <div className="mt-8 flex items-center justify-between border-t border-[#EEF0F3] pt-6">
               <button className="rounded-full px-4 py-2 font-semibold text-[#5B616E] disabled:invisible" disabled={step === 1} onClick={() => { setError(""); setStep(1); }} type="button">Back</button>
               {step === 1
-                ? <button className="rounded-full bg-[#0052FF] px-6 py-3 font-semibold text-white" onClick={continueToBalances} type="button">Continue</button>
-                : <button className="rounded-full bg-[#0052FF] px-6 py-3 font-semibold text-white disabled:opacity-60" disabled={saving} onClick={save} type="button">{saving ? "Saving…" : "Save cards"}</button>}
+                ? <button className="rounded-full bg-[#16A34A] px-6 py-3 font-semibold text-white" onClick={continueToBalances} type="button">Continue</button>
+                : <button className="rounded-full bg-[#16A34A] px-6 py-3 font-semibold text-white disabled:opacity-60" disabled={saving} onClick={save} type="button">{saving ? "Saving…" : "Save cards"}</button>}
             </div>
           </section>
         </div>

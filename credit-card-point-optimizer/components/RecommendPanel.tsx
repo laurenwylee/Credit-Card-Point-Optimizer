@@ -55,7 +55,7 @@ export function RecommendPanel({
             onClick={() => onCategoryChange(slug)}
             className={`rounded-full px-4 py-2 text-[14px] font-medium transition-colors ${
               category === slug
-                ? "bg-[#0052FF] text-white"
+                ? "bg-[#16A34A] text-white"
                 : "bg-white text-[#0A0B0D] ring-1 ring-inset ring-[#D0D5DD] hover:bg-[#F5F6F8]"
             }`}
           >
@@ -68,7 +68,7 @@ export function RecommendPanel({
         <label htmlFor="amount" className="text-[14px] font-medium text-[#5B616E]">
           Purchase amount
         </label>
-        <div className="flex items-center rounded-lg bg-white ring-1 ring-inset ring-[#D0D5DD] focus-within:ring-2 focus-within:ring-[#0052FF]">
+        <div className="flex items-center rounded-lg bg-white ring-1 ring-inset ring-[#D0D5DD] focus-within:ring-2 focus-within:ring-[#16A34A]">
           <span className="pl-3 text-[14px] text-[#5B616E]">$</span>
           <input
             id="amount"
@@ -116,7 +116,7 @@ export function RecommendPanel({
               <div className="text-right">
                 <p className="text-[15px] font-bold text-[#0A0B0D]">{rec.centsPerDollar}¢/$1</p>
                 {earned !== null && (
-                  <p className="text-[13px] font-medium text-[#0052FF]">${earned.toFixed(2)} back</p>
+                  <p className="text-[13px] font-medium text-[#16A34A]">${earned.toFixed(2)} back</p>
                 )}
               </div>
             </li>
@@ -125,10 +125,10 @@ export function RecommendPanel({
       </ol>
 
       {hasAmount && deltaCents > 0 && best && (
-        <p className="mt-4 rounded-xl bg-[#EBF0FF] px-4 py-3 text-[14px] leading-snug text-[#0A0B0D]">
+        <p className="mt-4 rounded-xl bg-[#DCFCE7] px-4 py-3 text-[14px] leading-snug text-[#0A0B0D]">
           Paying with the <span className="font-semibold">{best.cardName}</span> instead of your
           lowest-earning card gets you{" "}
-          <span className="font-semibold text-[#0052FF]">${(deltaCents / 100).toFixed(2)} more</span> on
+          <span className="font-semibold text-[#16A34A]">${(deltaCents / 100).toFixed(2)} more</span> on
           this purchase.
         </p>
       )}

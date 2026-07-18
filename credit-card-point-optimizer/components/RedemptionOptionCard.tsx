@@ -35,7 +35,7 @@ export function RedemptionOptionCard({
         ) : null}
       </div>
 
-      <p className="mt-5 text-3xl font-semibold tracking-[-0.01em] text-[#0052FF]">
+      <p className="mt-5 text-3xl font-semibold tracking-[-0.01em] text-[#16A34A]">
         {dollarFormatter.format(option.estimatedValueUsd)}
       </p>
       <p className="mt-1 text-sm text-[#5B616E]">estimated redemption value</p>

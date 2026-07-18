@@ -43,7 +43,7 @@ export default async function TransfersPage() {
       <SiteHeader
         right={
           <Link
-            className="rounded-full bg-[#0052FF] px-3.5 py-1.5 text-[13px] font-medium text-white hover:bg-[#0043CC]"
+            className="rounded-full bg-[#16A34A] px-3.5 py-1.5 text-[13px] font-medium text-white hover:bg-[#15803D]"
             href="/dashboard"
           >
             Dashboard

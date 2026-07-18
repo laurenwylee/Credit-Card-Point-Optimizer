@@ -96,7 +96,7 @@ export default function PointsOptimizer({
 
       <main className="mx-auto max-w-6xl px-6 py-12 sm:py-16">
         <div className="max-w-3xl">
-          <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#0052FF]">
+          <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#16A34A]">
             Redemption optimizer
           </p>
           <h1 className="mt-4 text-[44px] font-bold leading-[1.08] tracking-[-0.02em] text-[#0A0B0D] sm:text-6xl">
@@ -117,7 +117,7 @@ export default function PointsOptimizer({
             <label className="grid gap-2 text-sm font-semibold text-[#5B616E]">
               Rewards program
               <select
-                className="h-12 rounded-xl border border-[#D0D5DD] bg-white px-4 text-base text-[#0A0B0D] outline-none transition focus:border-[#0052FF] focus:ring-4 focus:ring-[#EBF0FF]"
+                className="h-12 rounded-xl border border-[#D0D5DD] bg-white px-4 text-base text-[#0A0B0D] outline-none transition focus:border-[#16A34A] focus:ring-4 focus:ring-[#DCFCE7]"
                 onChange={(event) => setProgramId(event.target.value)}
                 value={programId}
               >
@@ -148,7 +148,7 @@ export default function PointsOptimizer({
             <label className="grid gap-2 text-sm font-semibold text-[#5B616E]">
               Points balance
               <input
-                className="h-12 rounded-xl border border-[#D0D5DD] px-4 text-base text-[#0A0B0D] outline-none transition focus:border-[#0052FF] focus:ring-4 focus:ring-[#EBF0FF]"
+                className="h-12 rounded-xl border border-[#D0D5DD] px-4 text-base text-[#0A0B0D] outline-none transition focus:border-[#16A34A] focus:ring-4 focus:ring-[#DCFCE7]"
                 inputMode="numeric"
                 min="1"
                 onChange={(event) => setPointsInput(event.target.value)}
@@ -160,7 +160,7 @@ export default function PointsOptimizer({
             </label>
 
             <button
-              className="h-12 rounded-full bg-[#0052FF] px-6 font-semibold text-white transition disabled:cursor-wait disabled:opacity-60"
+              className="h-12 rounded-full bg-[#16A34A] px-6 font-semibold text-white transition disabled:cursor-wait disabled:opacity-60"
               disabled={isLoading}
               type="submit"
             >
@@ -180,7 +180,7 @@ export default function PointsOptimizer({
         <section aria-live="polite" className="mt-10">
           <div className="grid gap-4 rounded-3xl bg-[#0A0B0D] p-6 text-white sm:grid-cols-[1fr_auto] sm:items-end sm:p-8">
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#7FA6FF]">
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#86EFAC]">
                 Baseline estimate
               </p>
               <h2 className="mt-2 text-2xl font-semibold">
@@ -219,7 +219,7 @@ export default function PointsOptimizer({
           </div>
 
           {!result.transferable ? (
-            <div className="mt-6 rounded-2xl border border-[#D8E4FF] bg-[#EBF0FF] p-5 text-sm leading-6 text-[#0A0B0D]">
+            <div className="mt-6 rounded-2xl border border-[#BBF7D0] bg-[#DCFCE7] p-5 text-sm leading-6 text-[#0A0B0D]">
               This airline or hotel balance is treated as non-transferable.
               Check the real award or room price before redeeming; this MVP does
               not invent outbound transfer options for loyalty-program points.
@@ -252,7 +252,7 @@ export default function PointsOptimizer({
           <div className="mt-5 flex flex-wrap gap-2">
             {programs.map((program) => (
               <a
-                className="rounded-full border border-[#EEF0F3] bg-white px-3 py-1.5 text-xs font-medium text-[#5B616E] transition hover:border-[#0052FF] hover:text-[#0052FF]"
+                className="rounded-full border border-[#EEF0F3] bg-white px-3 py-1.5 text-xs font-medium text-[#5B616E] transition hover:border-[#16A34A] hover:text-[#16A34A]"
                 href={program.sourceUrl}
                 key={program.id}
                 rel="noreferrer"
