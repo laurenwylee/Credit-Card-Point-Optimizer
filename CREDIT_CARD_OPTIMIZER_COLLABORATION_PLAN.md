@@ -371,3 +371,14 @@ The points feature is done when:
 - The feature works without external APIs.
 - The React page is usable during the demo.
 - Lint and production build pass.
+
+## 14. Branch Integration Note
+
+Reviewed `origin/points-balance` at commit `63e91d3` on July 18, 2026.
+
+- The teammate branch adds Supabase valuation, transfer-partner, and sweet-spot tables.
+- The `feature/points-optimizer` branch adds the `/points` UI, `/api/points`, close-call ranking, non-transferable guidance, and a complete local fallback.
+- Keep one long-term calculation contract instead of maintaining two competing implementations.
+- Recommended merge order: finish and review `points-balance`, merge it to `main`, then update `/api/points` to read the Supabase tables with the local dataset as its automatic fallback.
+- Do not merge generated `supabase/.temp/*` files; remove them from the branch and ignore them before integration.
+- No files from `points-balance` were merged into `feature/points-optimizer` during this review.
