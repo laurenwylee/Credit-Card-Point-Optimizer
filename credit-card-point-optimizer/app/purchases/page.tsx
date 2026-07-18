@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { cards } from "@/lib/cards";
 import { loadOnboardingProfile } from "@/lib/onboarding";
+import { bestSignupNudge } from "@/lib/signupBonus";
+import { getValuationTable } from "@/lib/valuations";
 import { createClient } from "@/utils/supabase/server";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WalletApp } from "@/components/WalletApp";
@@ -25,6 +27,7 @@ async function cardsForViewer() {
 
 export default async function WalletPage() {
   const viewerCards = await cardsForViewer();
+  const nudge = bestSignupNudge(viewerCards, await getValuationTable());
 
   return (
     <div className="min-h-screen bg-white">
@@ -39,7 +42,7 @@ export default async function WalletPage() {
         }
       />
       <main className="pt-10">
-        <WalletApp cards={viewerCards} />
+        <WalletApp cards={viewerCards} nudge={nudge} />
       </main>
     </div>
   );
