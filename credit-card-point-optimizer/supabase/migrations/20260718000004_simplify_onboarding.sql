@@ -1,18 +1,12 @@
-create table if not exists public.profiles (
-  user_id uuid primary key references auth.users(id) on delete cascade,
-  onboarding_completed_at timestamptz,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
+-- Upgrade installations that applied the original onboarding migration.
+drop table if exists public.monthly_spending;
 
-create table if not exists public.user_cards (
-  user_id uuid not null references auth.users(id) on delete cascade,
-  card_key text not null,
-  created_at timestamptz not null default now(),
-  primary key (user_id, card_key)
-);
+alter table public.user_cards
+  drop column if exists bonus_activated,
+  drop column if exists choice_category;
 
-create table if not exists public.reward_balances (
+drop table if exists public.reward_balances;
+create table public.reward_balances (
   user_id uuid not null references auth.users(id) on delete cascade,
   card_key text not null,
   balance bigint not null check (balance >= 0),
@@ -21,14 +15,7 @@ create table if not exists public.reward_balances (
   foreign key (user_id, card_key) references public.user_cards(user_id, card_key) on delete cascade
 );
 
-alter table public.profiles enable row level security;
-alter table public.user_cards enable row level security;
 alter table public.reward_balances enable row level security;
-
-create policy "users manage own profile" on public.profiles for all
-  using (auth.uid() = user_id) with check (auth.uid() = user_id);
-create policy "users manage own cards" on public.user_cards for all
-  using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "users manage own balances" on public.reward_balances for all
   using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
@@ -46,8 +33,8 @@ declare
 begin
   if current_user_id is null then raise exception 'Unauthorized'; end if;
 
-  delete from public.user_cards where user_id = current_user_id;
   delete from public.reward_balances where user_id = current_user_id;
+  delete from public.user_cards where user_id = current_user_id;
 
   for item in select value from jsonb_array_elements(p_input->'cardKeys') loop
     insert into public.user_cards (user_id, card_key)
