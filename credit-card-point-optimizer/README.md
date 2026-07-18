@@ -41,6 +41,12 @@ The points-valuation data lives in Supabase (`supabase/migrations/`, `supabase/s
    The seed values are placeholder cents-per-point estimates — replace them with the current month's actual [TPG](https://thepointsguy.com/guide/monthly-valuations/) or NerdWallet valuations before relying on them.
 4. Verify it worked by calling `getPointValuations()` from `lib/valuations.ts` in a server component or route handler.
 
+The same `npx supabase db push` command applies the user-onboarding tables and
+row-level security policies from
+`supabase/migrations/20260718000003_user_onboarding.sql`. Apply that migration
+before testing `/onboarding`; the page intentionally refuses to collect data
+until its protected tables are available.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
