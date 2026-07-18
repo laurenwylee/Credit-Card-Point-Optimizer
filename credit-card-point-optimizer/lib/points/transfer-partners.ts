@@ -49,6 +49,16 @@ export const LOCAL_TRANSFER_PARTNERS: readonly TransferPartner[] = [
   partner("capital-one-miles", "virgin-atlantic-flying-club"),
   partner("capital-one-miles", "choice-privileges"),
   partner("capital-one-miles", "wyndham-rewards"),
+
+  // Wells Fargo also transfers to Aer Lingus, Avianca, Cathay Pacific, Iberia,
+  // and Virgin Red at 1:1 — omitted until those programs have a valuation
+  // entry in lib/points/valuations.ts.
+  partner("wells-fargo-rewards", "flying-blue"),
+  partner("wells-fargo-rewards", "british-airways-avios"),
+  partner("wells-fargo-rewards", "jetblue-trueblue"),
+  partner("wells-fargo-rewards", "virgin-atlantic-flying-club"),
+  partner("wells-fargo-rewards", "choice-privileges", 2),
+  partner("wells-fargo-rewards", "wyndham-rewards", 2),
 ];
 
 export function getLocalTransferPartners(

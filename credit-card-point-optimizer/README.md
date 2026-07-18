@@ -1,63 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pointmaxxer — Credit Card Point Optimizer
 
-## Getting Started
+Sign in, tell it which cards you have and how many points are on each, and it
+recommends (a) which card to use for a purchase and (b) the best place to
+redeem or transfer your points.
 
-First, run the development server:
+## How the app works
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Auth** — Google OAuth via Supabase (`app/login`, `app/auth/callback`).
+  Signing in creates a Supabase session cookie; every protected page/route
+  reads the user from that session.
+- **Onboarding** (`app/onboarding`) — after first sign-in, the user picks
+  which cards they hold from the catalog in `data/cards.json` and manually
+  enters the current point/cash-back balance on each one. This is stored per
+  user in Supabase (`supabase/migrations/20260718000003_user_onboarding.sql`,
+  `..._simplify_onboarding.sql`). There is no live balance-fetching
+  integration — balances are only as fresh as what the user last typed in.
+- **Dashboard** (`app/dashboard`) — summary of the signed-in user's wallet:
+  cards held and total points entered, with links into the two optimizer
+  flows below.
+- **Best card for a purchase** (`app/purchases`, `lib/recommend.ts`,
+  `app/api/recommend`) — ranks only the user's own onboarded cards against a
+  spend category/amount using each card's earning multipliers from
+  `data/cards.json`.
+- **Best redemption/transfer** (`app/transfers`, `app/points`,
+  `lib/points/optimizer.ts`) — for each card with a points balance, ranks
+  transfer-partner and direct-redemption options by estimated value. Falls
+  back to a bundled local valuation table (`lib/points/valuations.ts`,
+  `lib/points/transfer-partners.ts`) if Supabase is unreachable.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Data sources
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Data | Source | Freshness |
+|---|---|---|
+| Card catalog (earning rates, categories) | Rewards Credit Card API (rewardscc.com via RapidAPI), cached to `data/cards.json` by `npm run fetch-cards` | Snapshot, re-run script manually |
+| Point valuations (cents-per-point) | Manually seeded in Supabase from TPG/NerdWallet monthly published valuations (`supabase/seed.sql`) | Manual, monthly |
+| Transfer partner ratios/bonuses | Manually seeded in Supabase (`supabase/migrations/20260718000001_transfer_partners.sql`) | Manual |
+| Card balances | User-entered during onboarding | As current as the user keeps it |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+None of this refreshes automatically today — card data and point valuations
+are both **manually updated snapshots**. Once this is wired to a paid
+subscription API (for card data, a paid RapidAPI tier; for valuations, a
+licensed data feed if one becomes available), these tables can be updated on
+a schedule instead of by hand.
 
-## Supabase setup (points valuation)
+## Running it locally
 
-The points-valuation data lives in Supabase (`supabase/migrations/`, `supabase/seed.sql`).
-
-1. Get the `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` for the project (from whoever set up the Supabase instance) and copy them into a `.env.local`:
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Copy the env template and fill in Supabase credentials:
    ```bash
    cp .env.example .env.local
-   # then fill in the two values
    ```
-2. Push the schema to your Supabase project:
+   You need `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`,
+   and `SUPABASE_SERVICE_ROLE_KEY` — get these from whoever set up the
+   Supabase project. Google OAuth must also be enabled as a provider in that
+   Supabase project's Auth settings.
+3. Push the database schema and load seed data:
    ```bash
    npx supabase link --project-ref <your-project-ref>
    npx supabase db push
-   ```
-3. Load the seed data:
-   ```bash
    npx supabase db execute -f supabase/seed.sql
    ```
-   The seed values are placeholder cents-per-point estimates — replace them with the current month's actual [TPG](https://thepointsguy.com/guide/monthly-valuations/) or NerdWallet valuations before relying on them.
-4. Verify it worked by calling `getPointValuations()` from `lib/valuations.ts` in a server component or route handler.
+   This applies all migrations in `supabase/migrations/`, including the
+   points-valuation tables and the user-onboarding tables/RLS policies. The
+   app intentionally refuses to run onboarding until those tables exist.
+   The seeded valuations are placeholders — replace them with the current
+   month's [TPG](https://thepointsguy.com/guide/monthly-valuations/) or
+   NerdWallet numbers before relying on them for real decisions.
+4. Start the dev server:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000).
+5. (Optional) Refresh the card catalog from the Rewards Credit Card API:
+   ```bash
+   # add RAPIDAPI_KEY=... to .env.local first
+   npm run fetch-cards
+   ```
 
-The same `npx supabase db push` command applies the user-onboarding tables and
-row-level security policies from
-`supabase/migrations/20260718000003_user_onboarding.sql`. Apply that migration
-before testing `/onboarding`; the page intentionally refuses to collect data
-until its protected tables are available.
+## Scripts
+
+- `npm run dev` / `npm run build` / `npm run start` — standard Next.js dev/build/serve.
+- `npm run lint` — ESLint.
+- `npm run fetch-cards` — refresh `data/cards.json` from the Rewards Credit Card API.
+- `npm run test:onboarding` — asserts on `validateOnboardingInput` in `lib/onboarding.ts` (card-key/balance validation rules).
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Supabase Auth (Next.js)](https://supabase.com/docs/guides/auth/server-side/nextjs)

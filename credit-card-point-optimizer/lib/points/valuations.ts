@@ -53,6 +53,31 @@ export const POINT_VALUATIONS = [
     transferable: true,
   },
   {
+    id: "wells-fargo-rewards",
+    name: "Wells Fargo Rewards",
+    issuer: "Wells Fargo",
+    kind: "bank",
+    cpp: 1.75,
+    sourceName: "The Points Guy monthly valuations",
+    sourceUrl: TPG_VALUATIONS_URL,
+    updatedAt: "2026-07-18",
+    transferable: true,
+  },
+  {
+    // Not covered by TPG's monthly valuations; WalletHub reports no airline
+    // or hotel transfer partners as of 2026-07 — redemption is portal/cash
+    // back/gift cards only, so this stays non-transferable.
+    id: "us-bank-points",
+    name: "U.S. Bank Rewards",
+    issuer: "U.S. Bank",
+    kind: "bank",
+    cpp: 1.18,
+    sourceName: "WalletHub",
+    sourceUrl: "https://wallethub.com/answers/cc/us-bank-points-value-1000531-2140723970/",
+    updatedAt: "2026-07-18",
+    transferable: false,
+  },
+  {
     id: "air-canada-aeroplan",
     name: "Air Canada Aeroplan",
     issuer: "Air Canada",
