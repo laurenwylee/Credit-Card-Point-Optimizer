@@ -41,10 +41,6 @@ export function CardFace({ card }: { card: Card }) {
           style={{ transform: `scale(${image.zoom})` }}
           draggable={false}
         />
-        {/* translucent name pill keeps the stacked peek scannable on any art */}
-        <span className="absolute left-3 top-3 max-w-[75%] truncate rounded-full bg-black/55 px-2.5 py-1 text-[12px] font-semibold text-white backdrop-blur-sm">
-          {card.cardName}
-        </span>
       </div>
     );
   }
