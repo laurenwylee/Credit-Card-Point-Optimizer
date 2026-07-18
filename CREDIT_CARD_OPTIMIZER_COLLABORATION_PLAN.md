@@ -374,11 +374,11 @@ The points feature is done when:
 
 ## 14. Branch Integration Note
 
-Reviewed `origin/points-balance` at commit `63e91d3` on July 18, 2026.
+Reviewed the merged `points-balance` work through `origin/main` commit `6262065` on July 18, 2026.
 
-- The teammate branch adds Supabase valuation, transfer-partner, and sweet-spot tables.
+- The teammate work adds Supabase valuation, transfer-partner, and sweet-spot tables.
 - The `feature/points-optimizer` branch adds the `/points` UI, `/api/points`, close-call ranking, non-transferable guidance, and a complete local fallback.
-- Keep one long-term calculation contract instead of maintaining two competing implementations.
-- Recommended merge order: finish and review `points-balance`, merge it to `main`, then update `/api/points` to read the Supabase tables with the local dataset as its automatic fallback.
-- Do not merge generated `supabase/.temp/*` files; remove them from the branch and ignore them before integration.
-- No files from `points-balance` were merged into `feature/points-optimizer` during this review.
+- The `/api/points` route now reads the teammate's Supabase tables first through a server-only bridge.
+- If Supabase is not configured, unavailable, or has no usable transfer rows, the route automatically uses the local dataset.
+- Generated `supabase/.temp/*` files were removed from tracking before the teammate work reached `main`.
+- The feature branch is rebased onto the merged teammate work and passes lint, production build, and local-fallback runtime checks.

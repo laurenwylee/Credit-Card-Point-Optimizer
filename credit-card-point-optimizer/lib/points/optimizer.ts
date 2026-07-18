@@ -1,10 +1,13 @@
-import { getLocalTransferPartners } from "./transfer-partners";
+import { LOCAL_TRANSFER_PARTNERS } from "./transfer-partners";
 import type {
   PointsCalculationRequest,
   PointsCalculationResponse,
   RankedRedemptionOption,
+  TransferDataSource,
+  TransferPartner,
+  PointValuation,
 } from "./types";
-import { getPointValuation } from "./valuations";
+import { POINT_VALUATIONS } from "./valuations";
 
 const DISCLAIMER =
   "Point values are estimates, not guaranteed cash values. Award availability, transfer times, taxes, fees, and the redemption price can change the value you actually receive.";
@@ -32,11 +35,25 @@ function isCloseCall(
   });
 }
 
-export function optimizePoints({
-  programId,
-  points,
-}: PointsCalculationRequest): PointsCalculationResponse {
-  const program = getPointValuation(programId);
+export type PointsOptimizerData = {
+  valuations: readonly PointValuation[];
+  transferPartners: readonly TransferPartner[];
+  transferDataSource: TransferDataSource;
+};
+
+const LOCAL_OPTIMIZER_DATA: PointsOptimizerData = {
+  valuations: POINT_VALUATIONS,
+  transferPartners: LOCAL_TRANSFER_PARTNERS,
+  transferDataSource: "local-fallback",
+};
+
+export function optimizePoints(
+  { programId, points }: PointsCalculationRequest,
+  data: PointsOptimizerData = LOCAL_OPTIMIZER_DATA,
+): PointsCalculationResponse {
+  const program = data.valuations.find(
+    (valuation) => valuation.id === programId,
+  );
 
   if (!program) {
     throw new Error("Unknown rewards program.");
@@ -60,33 +77,37 @@ export function optimizePoints({
   };
 
   const transferOptions: RankedRedemptionOption[] = program.transferable
-    ? getLocalTransferPartners(program.id).flatMap((transfer) => {
-        const destination = getPointValuation(transfer.destinationProgramId);
+    ? data.transferPartners
+        .filter((transfer) => transfer.sourceProgramId === program.id)
+        .flatMap((transfer) => {
+          const destination = data.valuations.find(
+            (valuation) => valuation.id === transfer.destinationProgramId,
+          );
 
-        if (!destination) {
-          return [];
-        }
+          if (!destination) {
+            return [];
+          }
 
-        const destinationPoints =
-          points *
-          transfer.transferRatio *
-          (1 + transfer.bonusPercent / 100);
+          const destinationPoints =
+            points *
+            transfer.transferRatio *
+            (1 + transfer.bonusPercent / 100);
 
-        return [
-          {
-            id: `transfer:${program.id}:${destination.id}`,
-            name: `Transfer to ${destination.name}`,
-            type: "transfer" as const,
-            destinationProgramId: destination.id,
-            transferRatio: transfer.transferRatio,
-            bonusPercent: transfer.bonusPercent,
-            destinationPoints,
-            cpp: destination.cpp,
-            estimatedValueUsd: (destinationPoints * destination.cpp) / 100,
-            closeCall: false,
-          },
-        ];
-      })
+          return [
+            {
+              id: `transfer:${program.id}:${destination.id}`,
+              name: `Transfer to ${destination.name}`,
+              type: "transfer" as const,
+              destinationProgramId: destination.id,
+              transferRatio: transfer.transferRatio,
+              bonusPercent: transfer.bonusPercent,
+              destinationPoints,
+              cpp: destination.cpp,
+              estimatedValueUsd: (destinationPoints * destination.cpp) / 100,
+              closeCall: false,
+            },
+          ];
+        })
     : [];
 
   const rankedOptions = [directOption, ...transferOptions]
@@ -114,7 +135,7 @@ export function optimizePoints({
     recommendation,
     valuationUpdatedAt: program.updatedAt,
     transferDataSource: program.transferable
-      ? "local-fallback"
+      ? data.transferDataSource
       : "not-applicable",
     disclaimer: DISCLAIMER,
   };

@@ -296,9 +296,11 @@ export default function PointsOptimizer({
             <p>{result.disclaimer}</p>
             <p className="mt-2">
               Transfer data:{" "}
-              {result.transferDataSource === "local-fallback"
-                ? "manually maintained local snapshot"
-                : "not applicable"}
+              {result.transferDataSource === "supabase"
+                ? "team Supabase tables"
+                : result.transferDataSource === "local-fallback"
+                  ? "manually maintained local snapshot"
+                  : "not applicable"}
               .
             </p>
           </div>

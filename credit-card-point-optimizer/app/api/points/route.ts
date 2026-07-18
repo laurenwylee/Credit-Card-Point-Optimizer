@@ -1,4 +1,4 @@
-import { optimizePoints } from "@/lib/points/optimizer";
+import { optimizePointsWithDataSource } from "@/lib/points/data-provider";
 import type { PointsCalculationRequest } from "@/lib/points/types";
 import { POINT_VALUATIONS } from "@/lib/points/valuations";
 
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
 
   try {
     return Response.json(
-      optimizePoints({
+      await optimizePointsWithDataSource({
         programId: body.programId,
         points: body.points,
       }),

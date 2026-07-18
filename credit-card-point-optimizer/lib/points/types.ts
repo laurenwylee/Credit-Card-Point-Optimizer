@@ -12,7 +12,7 @@ export type PointValuation = {
   transferable: boolean;
 };
 
-export type TransferDataSource = "local-fallback";
+export type TransferDataSource = "supabase" | "local-fallback";
 
 export type TransferPartner = {
   sourceProgramId: string;
