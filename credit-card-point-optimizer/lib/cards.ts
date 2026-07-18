@@ -27,6 +27,15 @@ export interface SpendBonus {
   spendBonusDesc: string;
 }
 
+// Exactly one of points/cash is set. Cards with no realistic new-cardholder
+// offer (Discover's cashback match, discontinued cards) omit signupBonus.
+export interface SignupBonus {
+  points?: number;
+  cash?: number;
+  spend: number;
+  months: number;
+}
+
 export interface Card {
   cardKey: string;
   cardName: string;
@@ -36,6 +45,7 @@ export interface Card {
   earnCurrency: string;
   baseSpendAmount: number;
   spendBonusCategory: SpendBonus[];
+  signupBonus?: SignupBonus;
   signupBonusDesc?: string;
 }
 

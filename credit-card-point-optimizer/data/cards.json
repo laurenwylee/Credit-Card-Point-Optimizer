@@ -15,6 +15,7 @@
         { "spendBonusCategoryName": "groceries", "earnMultiplier": 4, "isSpendLimit": true, "spendLimit": 25000, "spendLimitResetPeriod": "year", "spendBonusDesc": "4x at US supermarkets, up to $25k/yr" },
         { "spendBonusCategoryName": "flights", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3x on flights booked directly with airlines or amextravel.com" }
       ],
+      "signupBonus": { "points": 60000, "spend": 6000, "months": 6 },
       "signupBonusDesc": "60,000 Membership Rewards points after $6,000 spend in 6 months"
     },
     {
@@ -29,6 +30,7 @@
         { "spendBonusCategoryName": "flights", "earnMultiplier": 5, "isSpendLimit": true, "spendLimit": 500000, "spendLimitResetPeriod": "year", "spendBonusDesc": "5x on flights booked direct or via amextravel.com, up to $500k/yr" },
         { "spendBonusCategoryName": "hotels", "earnMultiplier": 5, "isSpendLimit": false, "spendBonusDesc": "5x on prepaid hotels booked via amextravel.com" }
       ],
+      "signupBonus": { "points": 80000, "spend": 8000, "months": 6 },
       "signupBonusDesc": "80,000 Membership Rewards points after $8,000 spend in 6 months"
     },
     {
@@ -45,6 +47,7 @@
         { "spendBonusCategoryName": "transit", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3% on transit (taxis, rideshare, parking, trains)" },
         { "spendBonusCategoryName": "gas", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3% at US gas stations" }
       ],
+      "signupBonus": { "cash": 250, "spend": 3000, "months": 6 },
       "signupBonusDesc": "$250 statement credit after $3,000 spend in 6 months; $0 intro annual fee first year"
     },
     {
@@ -63,6 +66,7 @@
         { "spendBonusCategoryName": "gas", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3x on gas and EV charging (added June 2026)" },
         { "spendBonusCategoryName": "travel", "earnMultiplier": 2, "isSpendLimit": false, "spendBonusDesc": "2x on all other travel" }
       ],
+      "signupBonus": { "points": 75000, "spend": 5000, "months": 3 },
       "signupBonusDesc": "75,000 Ultimate Rewards points after $5,000 spend in 3 months"
     },
     {
@@ -79,6 +83,7 @@
         { "spendBonusCategoryName": "hotels", "earnMultiplier": 4, "isSpendLimit": false, "spendBonusDesc": "4x on hotels booked directly" },
         { "spendBonusCategoryName": "dining", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3x on dining worldwide" }
       ],
+      "signupBonus": { "points": 60000, "spend": 5000, "months": 3 },
       "signupBonusDesc": "60,000 Ultimate Rewards points after $5,000 spend in 3 months"
     },
     {
@@ -94,6 +99,7 @@
         { "spendBonusCategoryName": "dining", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3% on dining, including delivery" },
         { "spendBonusCategoryName": "drugstores", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3% at drugstores" }
       ],
+      "signupBonus": { "cash": 200, "spend": 500, "months": 3 },
       "signupBonusDesc": "$200 after $500 spend in 3 months"
     },
     {
@@ -110,6 +116,7 @@
         { "spendBonusCategoryName": "dining", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3% on dining, including delivery" },
         { "spendBonusCategoryName": "drugstores", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3% at drugstores" }
       ],
+      "signupBonus": { "cash": 200, "spend": 500, "months": 3 },
       "signupBonusDesc": "$200 after $500 spend in 3 months"
     },
     {
@@ -123,6 +130,7 @@
       "spendBonusCategory": [
         { "spendBonusCategoryName": "citi-travel", "earnMultiplier": 5, "isSpendLimit": false, "spendBonusDesc": "5% total cash back on hotels and rental cars booked through Citi Travel" }
       ],
+      "signupBonus": { "cash": 200, "spend": 1500, "months": 6 },
       "signupBonusDesc": "$200 after $1,500 spend in 6 months"
     },
     {
@@ -149,6 +157,7 @@
       "spendBonusCategory": [
         { "spendBonusCategoryName": "capital-one-travel-hotels", "earnMultiplier": 5, "isSpendLimit": false, "spendBonusDesc": "5x on hotels and rental cars booked through Capital One Travel" }
       ],
+      "signupBonus": { "points": 75000, "spend": 4000, "months": 3 },
       "signupBonusDesc": "75,000 miles after $4,000 spend in 3 months"
     },
     {
@@ -165,6 +174,7 @@
         { "spendBonusCategoryName": "entertainment", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3% on entertainment" },
         { "spendBonusCategoryName": "streaming", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3% on popular streaming services" }
       ],
+      "signupBonus": { "cash": 200, "spend": 500, "months": 3 },
       "signupBonusDesc": "$200 after $500 spend in 3 months"
     },
     {
@@ -189,6 +199,7 @@
       "earnCurrency": "cashback",
       "baseSpendAmount": 2,
       "spendBonusCategory": [],
+      "signupBonus": { "cash": 200, "spend": 500, "months": 3 },
       "signupBonusDesc": "$200 after $500 spend in 3 months"
     },
     {
@@ -207,6 +218,7 @@
         { "spendBonusCategoryName": "streaming", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3x on popular streaming services" },
         { "spendBonusCategoryName": "phone-plans", "earnMultiplier": 3, "isSpendLimit": false, "spendBonusDesc": "3x on phone plans" }
       ],
+      "signupBonus": { "points": 20000, "spend": 1000, "months": 3 },
       "signupBonusDesc": "20,000 points after $1,000 spend in 3 months"
     },
     {
@@ -221,6 +233,7 @@
         { "spendBonusCategoryName": "choice-category", "earnMultiplier": 3, "isSpendLimit": true, "spendLimit": 2500, "spendLimitResetPeriod": "quarter", "spendBonusDesc": "3% in one category of your choice (online shopping, gas/EV, dining, travel, drugstores, or home improvement), up to $2,500/qtr combined with 2% tier" },
         { "spendBonusCategoryName": "groceries", "earnMultiplier": 2, "isSpendLimit": true, "spendLimit": 2500, "spendLimitResetPeriod": "quarter", "spendBonusDesc": "2% at grocery stores and wholesale clubs, shares the $2,500/qtr cap" }
       ],
+      "signupBonus": { "cash": 200, "spend": 1000, "months": 3 },
       "signupBonusDesc": "$200 after $1,000 spend in 90 days"
     },
     {
@@ -237,6 +250,7 @@
         { "spendBonusCategoryName": "gas", "earnMultiplier": 2, "isSpendLimit": false, "spendBonusDesc": "2x at gas stations and EV charging" },
         { "spendBonusCategoryName": "streaming", "earnMultiplier": 2, "isSpendLimit": false, "spendBonusDesc": "2x on streaming services" }
       ],
+      "signupBonus": { "points": 20000, "spend": 1000, "months": 3 },
       "signupBonusDesc": "20,000 points after $1,000 spend in 90 days"
     }
   ]

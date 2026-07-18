@@ -3,10 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Card } from "@/lib/cards";
 import type { Recommendation } from "@/lib/recommend";
+import type { SignupNudge } from "@/lib/signupBonus";
 import { RecommendPanel } from "@/components/RecommendPanel";
 import { WalletStack } from "@/components/WalletStack";
 
-export function WalletApp({ cards }: { cards: Card[] }) {
+export function WalletApp({ cards, nudge }: { cards: Card[]; nudge?: SignupNudge | null }) {
   const [category, setCategory] = useState("dining");
   const [amount, setAmount] = useState("100");
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
@@ -54,6 +55,7 @@ export function WalletApp({ cards }: { cards: Card[] }) {
             loading={loading}
           />
         </div>
+        {nudge && <SignupNudgeBanner nudge={nudge} amount={amount} />}
       </section>
 
       <section aria-label="Your cards">
@@ -63,6 +65,31 @@ export function WalletApp({ cards }: { cards: Card[] }) {
         </div>
         <WalletStack cards={cards} ranks={ranks} />
       </section>
+    </div>
+  );
+}
+
+function SignupNudgeBanner({ nudge, amount }: { nudge: SignupNudge; amount: string }) {
+  const parsed = Number.parseFloat(amount);
+  const pct = Number.isFinite(parsed) && parsed > 0 ? Math.min(100, (parsed / nudge.spend) * 100) : null;
+  const displayName = /^the /i.test(nudge.cardName) ? nudge.cardName : `the ${nudge.cardName}`;
+  return (
+    <div className="mt-5 rounded-2xl border border-[#EEF0F3] bg-white p-4">
+      <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#0052FF]">
+        Welcome offer
+      </p>
+      <p className="mt-1.5 text-[14px] leading-snug text-[#0A0B0D]">
+        Spend <span className="font-semibold">${nudge.spend.toLocaleString()}</span> in your first{" "}
+        {nudge.months} months on <span className="font-semibold">{displayName}</span> to earn{" "}
+        {nudge.bonusLabel} — worth about{" "}
+        <span className="font-semibold">${nudge.valueDollars.toLocaleString()}</span>.
+      </p>
+      {pct !== null && (
+        <p className="mt-1 text-[13px] text-[#5B616E]">
+          Routing this ${parsed.toLocaleString()} purchase there covers {pct < 1 ? pct.toFixed(1) : Math.round(pct)}% of
+          the spend requirement.
+        </p>
+      )}
     </div>
   );
 }
