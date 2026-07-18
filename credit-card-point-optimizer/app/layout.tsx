@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "pointmax — the right card for every purchase",
+  title: "Pointmaxxer — the right card for every purchase",
   description: "Ranks your credit cards by real value back for any purchase.",
 };
 

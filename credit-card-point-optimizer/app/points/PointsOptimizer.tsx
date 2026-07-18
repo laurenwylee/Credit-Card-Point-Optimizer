@@ -8,6 +8,7 @@ import type {
   PointsCalculationResponse,
   RankedRedemptionOption,
 } from "@/lib/points/types";
+import { SiteHeader } from "@/components/SiteHeader";
 
 type PointsOptimizerProps = {
   programs: readonly PointValuation[];
@@ -32,13 +33,13 @@ function OptionCard({
   rank: number;
 }) {
   return (
-    <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <article className="rounded-2xl border border-[#EEF0F3] bg-white p-5 shadow-sm">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#9AA0AA]">
             Option {rank}
           </p>
-          <h3 className="mt-2 text-lg font-semibold text-slate-950">
+          <h3 className="mt-2 text-lg font-semibold text-[#0A0B0D]">
             {option.name}
           </h3>
         </div>
@@ -49,35 +50,35 @@ function OptionCard({
         ) : null}
       </div>
 
-      <p className="mt-5 text-3xl font-semibold tracking-tight text-emerald-700">
+      <p className="mt-5 text-3xl font-semibold tracking-[-0.01em] text-[#0052FF]">
         {dollarFormatter.format(option.estimatedValueUsd)}
       </p>
-      <p className="mt-1 text-sm text-slate-500">estimated redemption value</p>
+      <p className="mt-1 text-sm text-[#5B616E]">estimated redemption value</p>
 
-      <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4 text-sm">
+      <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-[#EEF0F3] pt-4 text-sm">
         <div>
-          <dt className="text-slate-500">Resulting points</dt>
-          <dd className="mt-1 font-semibold text-slate-900">
+          <dt className="text-[#5B616E]">Resulting points</dt>
+          <dd className="mt-1 font-semibold text-[#0A0B0D]">
             {pointFormatter.format(option.destinationPoints)}
           </dd>
         </div>
         <div>
-          <dt className="text-slate-500">Estimated value</dt>
-          <dd className="mt-1 font-semibold text-slate-900">
+          <dt className="text-[#5B616E]">Estimated value</dt>
+          <dd className="mt-1 font-semibold text-[#0A0B0D]">
             {option.cpp.toFixed(2)}¢ / point
           </dd>
         </div>
         {option.type === "transfer" ? (
           <>
             <div>
-              <dt className="text-slate-500">Transfer ratio</dt>
-              <dd className="mt-1 font-semibold text-slate-900">
+              <dt className="text-[#5B616E]">Transfer ratio</dt>
+              <dd className="mt-1 font-semibold text-[#0A0B0D]">
                 1 : {option.transferRatio}
               </dd>
             </div>
             <div>
-              <dt className="text-slate-500">Transfer bonus</dt>
-              <dd className="mt-1 font-semibold text-slate-900">
+              <dt className="text-[#5B616E]">Transfer bonus</dt>
+              <dd className="mt-1 font-semibold text-[#0A0B0D]">
                 {option.bonusPercent}%
               </dd>
             </div>
@@ -148,42 +149,39 @@ export default function PointsOptimizer({
   const hotelPrograms = programs.filter((program) => program.kind === "hotel");
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-950">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <a className="font-semibold tracking-tight" href="/points">
-            Pointwise
-          </a>
-          <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-800">
+    <div className="min-h-screen bg-white text-[#0A0B0D]">
+      <SiteHeader
+        right={
+          <span className="rounded-full bg-[#F5F6F8] px-3.5 py-1.5 text-[13px] font-medium text-[#5B616E]">
             Local data mode
           </span>
-        </div>
-      </header>
+        }
+      />
 
       <main className="mx-auto max-w-6xl px-6 py-12 sm:py-16">
         <div className="max-w-3xl">
-          <p className="text-sm font-bold uppercase tracking-[0.22em] text-emerald-700">
+          <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#0052FF]">
             Redemption optimizer
           </p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-6xl">
+          <h1 className="mt-4 text-[44px] font-bold leading-[1.08] tracking-[-0.02em] text-[#0A0B0D] sm:text-6xl">
             Find the strongest use for your points.
           </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-[#5B616E]">
             Compare direct value with eligible airline and hotel transfers.
             Close estimates are flagged so a tiny decimal difference does not
             make the decision for you.
           </p>
         </div>
 
-        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <section className="mt-10 rounded-3xl border border-[#EEF0F3] bg-white p-6 shadow-sm sm:p-8">
           <form
             className="grid gap-5 md:grid-cols-[1.5fr_1fr_auto] md:items-end"
             onSubmit={handleSubmit}
           >
-            <label className="grid gap-2 text-sm font-semibold text-slate-700">
+            <label className="grid gap-2 text-sm font-semibold text-[#5B616E]">
               Rewards program
               <select
-                className="h-12 rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-950 outline-none transition focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
+                className="h-12 rounded-xl border border-[#D0D5DD] bg-white px-4 text-base text-[#0A0B0D] outline-none transition focus:border-[#0052FF] focus:ring-4 focus:ring-[#EBF0FF]"
                 onChange={(event) => setProgramId(event.target.value)}
                 value={programId}
               >
@@ -211,10 +209,10 @@ export default function PointsOptimizer({
               </select>
             </label>
 
-            <label className="grid gap-2 text-sm font-semibold text-slate-700">
+            <label className="grid gap-2 text-sm font-semibold text-[#5B616E]">
               Points balance
               <input
-                className="h-12 rounded-xl border border-slate-300 px-4 text-base text-slate-950 outline-none transition focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
+                className="h-12 rounded-xl border border-[#D0D5DD] px-4 text-base text-[#0A0B0D] outline-none transition focus:border-[#0052FF] focus:ring-4 focus:ring-[#EBF0FF]"
                 inputMode="numeric"
                 min="1"
                 onChange={(event) => setPointsInput(event.target.value)}
@@ -226,7 +224,7 @@ export default function PointsOptimizer({
             </label>
 
             <button
-              className="h-12 rounded-xl bg-slate-950 px-6 font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-wait disabled:opacity-60"
+              className="h-12 rounded-full bg-[#0052FF] px-6 font-semibold text-white transition disabled:cursor-wait disabled:opacity-60"
               disabled={isLoading}
               type="submit"
             >
@@ -244,36 +242,36 @@ export default function PointsOptimizer({
         </section>
 
         <section aria-live="polite" className="mt-10">
-          <div className="grid gap-4 rounded-3xl bg-slate-950 p-6 text-white sm:grid-cols-[1fr_auto] sm:items-end sm:p-8">
+          <div className="grid gap-4 rounded-3xl bg-[#0A0B0D] p-6 text-white sm:grid-cols-[1fr_auto] sm:items-end sm:p-8">
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-300">
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#7FA6FF]">
                 Baseline estimate
               </p>
               <h2 className="mt-2 text-2xl font-semibold">
                 {pointFormatter.format(result.points)}{" "}
                 {result.programName} points
               </h2>
-              <p className="mt-3 max-w-3xl leading-7 text-slate-300">
+              <p className="mt-3 max-w-3xl leading-7 text-[#9AA0AA]">
                 {result.recommendation}
               </p>
             </div>
-            <p className="text-4xl font-semibold tracking-tight text-white">
+            <p className="text-4xl font-semibold tracking-[-0.01em] text-white">
               {dollarFormatter.format(result.baselineValueUsd)}
             </p>
           </div>
 
           <div className="mt-7 flex flex-wrap items-end justify-between gap-3">
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-slate-500">
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#5B616E]">
                 Ranked results
               </p>
-              <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+              <h2 className="mt-2 text-2xl font-semibold text-[#0A0B0D]">
                 {result.topOptions.length > 1
                   ? "Your top three options"
                   : "Your direct-use estimate"}
               </h2>
             </div>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-[#5B616E]">
               Valuation reviewed {result.valuationUpdatedAt}
             </p>
           </div>
@@ -285,14 +283,14 @@ export default function PointsOptimizer({
           </div>
 
           {!result.transferable ? (
-            <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-5 text-sm leading-6 text-blue-950">
+            <div className="mt-6 rounded-2xl border border-[#D8E4FF] bg-[#EBF0FF] p-5 text-sm leading-6 text-[#0A0B0D]">
               This airline or hotel balance is treated as non-transferable.
               Check the real award or room price before redeeming; this MVP does
               not invent outbound transfer options for loyalty-program points.
             </div>
           ) : null}
 
-          <div className="mt-8 border-t border-slate-200 pt-6 text-sm leading-6 text-slate-500">
+          <div className="mt-8 border-t border-[#EEF0F3] pt-6 text-sm leading-6 text-[#5B616E]">
             <p>{result.disclaimer}</p>
             <p className="mt-2">
               Transfer data:{" "}
@@ -306,11 +304,11 @@ export default function PointsOptimizer({
           </div>
         </section>
 
-        <section className="mt-14 border-t border-slate-200 pt-8">
-          <h2 className="text-lg font-semibold text-slate-950">
+        <section className="mt-14 border-t border-[#EEF0F3] pt-8">
+          <h2 className="text-lg font-semibold text-[#0A0B0D]">
             Data transparency
           </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-[#5B616E]">
             Every valuation in this demo is an editable local estimate with a
             source and review date. No browser-side scraping or live third-party
             dependency is required.
@@ -318,7 +316,7 @@ export default function PointsOptimizer({
           <div className="mt-5 flex flex-wrap gap-2">
             {programs.map((program) => (
               <a
-                className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:border-emerald-300 hover:text-emerald-800"
+                className="rounded-full border border-[#EEF0F3] bg-white px-3 py-1.5 text-xs font-medium text-[#5B616E] transition hover:border-[#0052FF] hover:text-[#0052FF]"
                 href={program.sourceUrl}
                 key={program.id}
                 rel="noreferrer"

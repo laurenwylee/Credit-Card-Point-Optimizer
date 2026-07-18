@@ -76,10 +76,11 @@ export interface RecommendOptions {
   amount?: number;
   topN?: number;
   valuations?: ValuationTable;
+  cards?: Card[];
 }
 
-export function recommendCards({ category, amount, topN = 3, valuations = DEFAULT_VALUATIONS }: RecommendOptions): Recommendation[] {
-  const recommendations = cards.map((card) => {
+export function recommendCards({ category, amount, topN = 3, valuations = DEFAULT_VALUATIONS, cards: cardPool = cards }: RecommendOptions): Recommendation[] {
+  const recommendations = cardPool.map((card) => {
     let best: SpendBonus | undefined;
     let bestCaveat: string | undefined;
     for (const bonus of card.spendBonusCategory) {

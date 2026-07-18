@@ -6,7 +6,7 @@ import { POINT_VALUATIONS } from "@/lib/points/valuations";
 import PointsOptimizer from "./PointsOptimizer";
 
 export const metadata: Metadata = {
-  title: "Points Redemption Optimizer",
+  title: "Pointmaxxer — Points Redemption Optimizer",
   description:
     "Compare direct redemption estimates with eligible airline and hotel transfers.",
 };
