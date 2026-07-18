@@ -117,7 +117,7 @@ const CARD_IMAGES: Record<string, { ext: string; zoom?: number }> = {
   "amex-platinum": { ext: "png" },
   "amex-blue-cash-preferred": { ext: "avif" },
   "chase-sapphire-preferred": { ext: "png" },
-  "chase-sapphire-reserve": { ext: "png", zoom: 1.22 },
+  "chase-sapphire-reserve": { ext: "png" },
   "chase-freedom-unlimited": { ext: "jpg", zoom: 1.08 },
   "chase-freedom-flex": { ext: "webp" },
   "citi-double-cash": { ext: "webp" },

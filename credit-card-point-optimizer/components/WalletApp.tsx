@@ -35,8 +35,9 @@ export function WalletApp({ cards }: { cards: Card[] }) {
   }, [recommendations]);
 
   return (
-    <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 pb-20 lg:grid-cols-[1fr_420px]">
-      <section>
+    <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 pb-20 lg:grid-cols-[minmax(0,1fr)_420px]">
+      {/* min-w-0 lets truncated text shrink instead of blowing out the grid column */}
+      <section className="min-w-0">
         <h1 className="max-w-xl text-[44px] font-bold leading-[1.08] tracking-[-0.02em] text-[#0A0B0D]">
           The right card for every purchase.
         </h1>
