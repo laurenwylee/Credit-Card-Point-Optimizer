@@ -1,5 +1,6 @@
+import Image from "next/image";
 import type { Card } from "@/lib/cards";
-import { artFor } from "@/lib/cardArt";
+import { artFor, imageFor } from "@/lib/cardArt";
 
 function NetworkMark({ network, color }: { network: string; color: string }) {
   if (network === "mastercard") {
@@ -23,6 +24,31 @@ function NetworkMark({ network, color }: { network: string; color: string }) {
 
 export function CardFace({ card }: { card: Card }) {
   const art = artFor(card.cardKey);
+  const image = imageFor(card.cardKey);
+
+  if (image) {
+    return (
+      <div
+        className="relative aspect-[1.586/1] w-full select-none overflow-hidden rounded-2xl shadow-[0_8px_24px_rgba(10,11,13,0.18)]"
+        style={{ background: art.background }}
+      >
+        <Image
+          src={image.src}
+          alt={card.cardName}
+          fill
+          sizes="356px"
+          className="object-cover"
+          style={{ transform: `scale(${image.zoom})` }}
+          draggable={false}
+        />
+        {/* translucent name pill keeps the stacked peek scannable on any art */}
+        <span className="absolute left-3 top-3 max-w-[75%] truncate rounded-full bg-black/55 px-2.5 py-1 text-[12px] font-semibold text-white backdrop-blur-sm">
+          {card.cardName}
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div
       className="relative flex aspect-[1.586/1] w-full select-none flex-col justify-between overflow-hidden rounded-2xl p-5 shadow-[0_8px_24px_rgba(10,11,13,0.18)]"

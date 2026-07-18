@@ -109,6 +109,33 @@ export const cardArt: Record<string, CardArt> = {
   },
 };
 
+// Real card art in public/cards/, keyed by cardKey. Cards absent from this
+// map fall back to the CSS-gradient face. zoom crops away margins/shadows
+// baked into a source image so every face renders full-bleed.
+const CARD_IMAGES: Record<string, { ext: string; zoom?: number }> = {
+  "amex-gold": { ext: "png" },
+  "amex-platinum": { ext: "png" },
+  "amex-blue-cash-preferred": { ext: "avif" },
+  "chase-sapphire-preferred": { ext: "png" },
+  "chase-sapphire-reserve": { ext: "png", zoom: 1.22 },
+  "chase-freedom-unlimited": { ext: "jpg", zoom: 1.08 },
+  "chase-freedom-flex": { ext: "webp" },
+  "citi-double-cash": { ext: "webp" },
+  "citi-custom-cash": { ext: "webp" },
+  "capital-one-venture": { ext: "avif" },
+  "capital-one-savor": { ext: "avif" },
+  "discover-it-cash-back": { ext: "avif" },
+  "wells-fargo-active-cash": { ext: "png" },
+  "wells-fargo-autograph": { ext: "png" },
+  "bofa-customized-cash": { ext: "jpeg" },
+  "us-bank-altitude-go": { ext: "webp" },
+};
+
+export function imageFor(cardKey: string): { src: string; zoom: number } | null {
+  const entry = CARD_IMAGES[cardKey];
+  return entry ? { src: `/cards/${cardKey}.${entry.ext}`, zoom: entry.zoom ?? 1.02 } : null;
+}
+
 export const FALLBACK_ART: CardArt = {
   background: "linear-gradient(135deg, #6B7280 0%, #4B5563 100%)",
   text: LIGHT_TEXT,

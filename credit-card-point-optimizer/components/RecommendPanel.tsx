@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import type { Recommendation } from "@/lib/recommend";
-import { artFor } from "@/lib/cardArt";
+import { artFor, imageFor } from "@/lib/cardArt";
 
 export const CATEGORY_LABELS: [string, string][] = [
   ["dining", "Dining"],
@@ -91,9 +92,20 @@ export function RecommendPanel({
             >
               <span className="w-5 text-center text-[15px] font-bold text-[#9AA0AA]">{i + 1}</span>
               <span
-                className="h-9 w-14 shrink-0 rounded-md shadow-sm"
+                className="relative h-9 w-14 shrink-0 overflow-hidden rounded-md shadow-sm"
                 style={{ background: art.background }}
-              />
+              >
+                {imageFor(rec.cardKey) && (
+                  <Image
+                    src={imageFor(rec.cardKey)!.src}
+                    alt=""
+                    fill
+                    sizes="56px"
+                    className="object-cover"
+                    style={{ transform: `scale(${imageFor(rec.cardKey)!.zoom})` }}
+                  />
+                )}
+              </span>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-[15px] font-semibold text-[#0A0B0D]">{rec.cardName}</p>
                 <p className="truncate text-[13px] text-[#5B616E]">{rec.rewardDesc}</p>

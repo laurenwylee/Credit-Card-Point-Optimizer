@@ -63,7 +63,7 @@ export function WalletStack({ cards, ranks }: WalletStackProps) {
               <div className={`transition-transform duration-200 ${!selected ? "group-hover:-translate-y-1.5" : ""}`}>
                 <CardFace card={card} />
                 {rank !== undefined && !selected && (
-                  <span className="absolute -left-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-full bg-[#0052FF] px-1.5 text-[12px] font-bold text-white shadow-md ring-2 ring-white">
+                  <span className="absolute -right-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-full bg-[#0052FF] px-1.5 text-[12px] font-bold text-white shadow-md ring-2 ring-white">
                     {rank}
                   </span>
                 )}
