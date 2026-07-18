@@ -1,5 +1,6 @@
 import { resolveCategory, SPEND_CATEGORIES } from "@/lib/cards";
 import { recommendCards } from "@/lib/recommend";
+import { getValuationTable } from "@/lib/valuations";
 
 // GET /api/recommend?category=dining&amount=87.50&top=3
 export async function GET(request: Request) {
@@ -30,6 +31,7 @@ export async function GET(request: Request) {
   const topParam = params.get("top");
   const topN = topParam !== null ? Number.parseInt(topParam, 10) : undefined;
 
-  const recommendations = recommendCards({ category, amount, topN });
+  const valuations = await getValuationTable();
+  const recommendations = recommendCards({ category, amount, topN, valuations });
   return Response.json({ category, recommendations });
 }

@@ -20,6 +20,27 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Supabase setup (points valuation)
+
+The points-valuation data lives in Supabase (`supabase/migrations/`, `supabase/seed.sql`).
+
+1. Get the `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` for the project (from whoever set up the Supabase instance) and copy them into a `.env.local`:
+   ```bash
+   cp .env.example .env.local
+   # then fill in the two values
+   ```
+2. Push the schema to your Supabase project:
+   ```bash
+   npx supabase link --project-ref <your-project-ref>
+   npx supabase db push
+   ```
+3. Load the seed data:
+   ```bash
+   npx supabase db execute -f supabase/seed.sql
+   ```
+   The seed values are placeholder cents-per-point estimates — replace them with the current month's actual [TPG](https://thepointsguy.com/guide/monthly-valuations/) or NerdWallet valuations before relying on them.
+4. Verify it worked by calling `getPointValuations()` from `lib/valuations.ts` in a server component or route handler.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
